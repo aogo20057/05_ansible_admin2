@@ -1,0 +1,54 @@
+---
+# Web Server Configuration
+# * 1) install packages
+#       # yum -y install httpd mod_ssl
+# * 2) Web Server settings
+#       # scp files/indes.html ansivle#:/var/www/html/index.html
+# * 3) Web Service start
+#       # systemctl enable --now httpd
+# * 4) Firewall registration
+#       # firewall-cmd --permanent --add-service={httpd,https}
+# * 5) SELinux(?)
+
+- name: Install and start Apache HTTPD
+  hosts: webservers
+  tasks: 
+    - name: Install packages
+      yum:
+        name: 
+            - httpd
+            - mod_ssl
+        state: present
+  
+    - name: Web server settings  
+      copy: 
+        src: file/index.html
+        dest: /var/www/html/index.html
+
+    - name: Web service startup
+      service: 
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Firewall registration -http
+      firewalld: 
+        service: http
+        permanent: true
+        immediate: true
+        state: enabled
+
+    - name: Firewall registration -https
+      firewalld:
+        service: http
+        permanent: true
+        immediate: true
+        state: enabled
+    
+
+
+
+      
+
+
+

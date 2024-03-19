@@ -1,0 +1,16 @@
+---
+- name: 웹 패키지 지우기
+  hosts: all
+  tasks:
+  - name: 웹 패키지 지우기 {{ package }}
+    yum:
+      name: "{{ package }}"
+      state: absent
+    vars:
+      package:
+      - httpd
+      - mariadb-server
+      - php
+      - mutt 
+    
+

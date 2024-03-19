@@ -1,0 +1,48 @@
+####### Must be first line #####################
+[[ $- == *i* ]] && source "$HOME/.local/share/blesh/ble.sh" --attach=none
+################################################
+
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+export PS1='\[\e[{{ ps1_color }};1m\][\u@\h\[\e[33;1m\] \w]\$ \[\e[m\]'
+alias vi='/usr/bin/vim'
+alias clar='clear'
+alias c='clear'
+#
+# Sfecific configuration
+alias chrome='google-chrome'
+alias vscode='code'
+alias poweroff.sh='. ~/.poweroff.sh'
+#
+# Ansible Alias
+#
+alias ans='ansible'
+alias anp='ansible-playbook'
+alias and='ansible-doc'
+alias anpr='ansible-playbook -C'
+alias anpchk='ansible-playbook --syntax-check'
+alias anx='ansible-galaxy'
+alias anv='ansible-vault'
+alias ansfs='ansible localhost -m setup | grep "ansible_*"'
+
+
+###### Must be last line #######################
+[[ ${BLE_VERSION-} ]] && ble-attach
+################################################

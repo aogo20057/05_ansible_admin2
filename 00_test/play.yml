@@ -1,0 +1,10 @@
+---
+- name: Loop Register Test
+  tasks:
+    - name: Looping Echo Task
+        - one
+        - two
+      register: output
+    - debug:
+        msg: "{{ item.stdout  }}"
+      with.items: "{{ output['results'] }}"

@@ -1,0 +1,20 @@
+- name: DB 패키지 삭제
+  hosts: database_dev
+  tasks:
+  - name: 서비스 종료
+    service: 
+      name: mariadb
+      state: stopped
+      enabled: no
+
+  - name: DB 패키지 삭제
+    yum: 
+      name: "{{ pkg_db }}"  
+      state: absent
+    vars:
+      pkg_db:
+      - python3-PyMySQL
+      - mariadb-server  
+    when: ansible_distribution == 'CentOS'
+    
+

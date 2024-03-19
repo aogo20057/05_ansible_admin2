@@ -1,0 +1,17 @@
+---
+
+- name: Get large config file
+  file:
+    path: "{{ db_config_path }}"
+    state: absent
+
+- name: remove database packages
+  yum: 
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ db_packages }}"
+
+- name: Update motd for development
+  shell:
+    cmd: '> /etc/motd'
+
